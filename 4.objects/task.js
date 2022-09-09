@@ -5,29 +5,39 @@ function Student(name, gender, age) {
   
 }
 
-Student.prototype.setSubject = function (subjectName) {
-  return this.subject;
+Student.prototype.setSubject = function(subjectName) {
+    this.subject = subjectName;
 }
 
-Student.prototype.addMark = function (mark) {
-  if(this.marks === undefined){ 
-    this.marks = [];
-    this.marks.push(mark);
+Student.prototype.addMark = function(mark) {
+    if (this.marks === undefined) {
+        this.marks = [mark];
     } else {
-    this.marks.push(mark);
+        this.marks.push(mark);
     }
 }
 
-Student.prototype.addMarks = function (mark1, mark2, ...mark3) {
-  return this.marks.push(mark);
+Student.prototype.addMarks = function(...mark) {
+    if (this.marks === undefined) {
+        this.marks = [...mark];
+    } else {
+        this.marks.push(...mark);
+    }
 }
 
-Student.prototype.getAverage = function () {
-  return mark / mark.length;
+Student.prototype.getAverage = function() {
+    let result = 0;
+    if (this.marks) {
+        let sum = this.marks.reduce(function(acc, val) {
+            return acc + val;
+        })
+        result = sum / this.marks.length;
+    }
+    return result;
 }
 
-Student.prototype.exclude = function (reason) {
-  delete subject;
-  delete marks;
-  const excluded = { excluded: 'excluded!' };
+Student.prototype.exclude = function(reason) {
+    delete this.subject;
+    delete this.marks;
+    this.excluded = reason;
 }
